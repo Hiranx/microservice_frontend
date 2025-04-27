@@ -18,14 +18,14 @@ export default function App() {
                 <Route path="/register" element={<Register />} />
 
                 {/* All other routes wrapped with Layout */}
-                <Route element={<Layout />}>
+                <Route element={<Layout />}> {/* layout give navbar*/}
                     <Route path="/RestaurantList" element={<RestaurantList />} />
                     <Route path="/restaurants/create" element={<RestaurantCreateForm />} />
                     <Route path="/admin" element={<AdminDashboard />} />
                     <Route path="/manage/:id" element={<RestaurantManagement />} />
                     <Route path="/restaurants/:id" element={<RestaurantDetail />} />
 
-                    <Route path="*" element={<Navigate to="/login" replace />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
                 </Route>
             </Routes>
         </BrowserRouter>
