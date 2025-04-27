@@ -43,6 +43,22 @@ const Navbar = () => {
             alert('You are unauthorized person');
         }
     };
+    const handledelivaryAccess = () => {
+        if (userRole == 'Delivary') {
+            navigate('/manage');
+            console.log ('You are authorized person');
+        } else {
+            alert('You are unauthorized person');
+        }
+    };
+    const handleOrderAccess = () => {
+        if (userRole == 'Order') {
+            navigate('/manage');
+            console.log ('You are authorized person');
+        } else {
+            alert('You are unauthorized person');
+        }
+    };
 
     return (
         <nav className="bg-blue-600 text-white shadow-lg">
@@ -66,6 +82,18 @@ const Navbar = () => {
                                 className="hover:bg-blue-700 px-3 py-2 rounded"
                             >
                                 Manage Restaurant
+                            </button>
+                            <button
+                                onClick={handledelivaryAccess}
+                                className="hover:bg-blue-700 px-3 py-2 rounded"
+                            >
+                                Delivery
+                            </button>
+                            <button
+                                onClick={handleOrderAccess}
+                                className="hover:bg-blue-700 px-3 py-2 rounded"
+                            >
+                                Manage Orders
                             </button>
                         </>
                     )}
