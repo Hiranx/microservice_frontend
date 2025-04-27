@@ -9,12 +9,13 @@ import RestaurantManagement from "./pages/RestaurantOwner/RestaurantManagement"
 import RestaurantDetail from "./pages/Customer/RestaurantDetail"
 import Layout from "./components/common/Layout"
 
+
 export default function App() {
     return (
         <BrowserRouter>
             <Routes>
                 {/* Auth routes without Layout */}
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login />} /> 
                 <Route path="/register" element={<Register />} />
 
                 {/* All other routes wrapped with Layout */}

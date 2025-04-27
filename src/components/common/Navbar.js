@@ -1,15 +1,63 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';  // 👈 import jwt-decode
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const isAuthenticated = !!localStorage.getItem('token');
-    const userRole = localStorage.getItem('role');
+    const token = localStorage.getItem('token');
+    const isAuthenticated = !!token;
+
+    let userRole = null;
+
+    if (token) {
+        try {
+            const decoded = jwtDecode(token);
+            userRole = decoded.role; 
+    
+            console.log(userRole); 
+    
+        } catch (error) {
+            console.error('Invalid token:', error);
+            userRole = null;
+        }
+    }
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('role');
         navigate('/login');
+    };
+
+    const handleAdminAccess = () => {
+        if (userRole === 'ADMIN') {
+            navigate('/admin');
+        } else {
+            alert('You are unauthorized person');
+        }
+    };
+
+    const handleOwnerAccess = () => {
+        if (userRole == 'RESTURENTADMIN') {
+            navigate('/manage');
+            console.log ('You are authorized person');
+        } else {
+            alert('You are unauthorized person');
+        }
+    };
+    const handledelivaryAccess = () => {
+        if (userRole == 'Delivary') {
+            navigate('/manage');
+            console.log ('You are authorized person');
+        } else {
+            alert('You are unauthorized person');
+        }
+    };
+    const handleOrderAccess = () => {
+        if (userRole == 'Order') {
+            navigate('/manage');
+            console.log ('You are authorized person');
+        } else {
+            alert('You are unauthorized person');
+        }
     };
 
     return (
@@ -20,12 +68,34 @@ const Navbar = () => {
                 <div className="flex space-x-4">
                     <Link to="/RestaurantList" className="hover:bg-blue-700 px-3 py-2 rounded">Home</Link>
 
-                    {isAuthenticated && userRole === 'ADMIN' && (
-                        <Link to="/admin" className="hover:bg-blue-700 px-3 py-2 rounded">Admin</Link>
-                    )}
+                    {isAuthenticated && (
+                        <>
+                            <button
+                                onClick={handleAdminAccess}
+                                className="hover:bg-blue-700 px-3 py-2 rounded"
+                            >
+                                Admin
+                            </button>
 
-                    {isAuthenticated && userRole === 'RESTAURANTADMIN' && (
-                        <Link to="/manage" className="hover:bg-blue-700 px-3 py-2 rounded">Manage Restaurant</Link>
+                            <button
+                                onClick={handleOwnerAccess}
+                                className="hover:bg-blue-700 px-3 py-2 rounded"
+                            >
+                                Manage Restaurant
+                            </button>
+                            <button
+                                onClick={handledelivaryAccess}
+                                className="hover:bg-blue-700 px-3 py-2 rounded"
+                            >
+                                Delivery
+                            </button>
+                            <button
+                                onClick={handleOrderAccess}
+                                className="hover:bg-blue-700 px-3 py-2 rounded"
+                            >
+                                Manage Orders
+                            </button>
+                        </>
                     )}
 
                     {isAuthenticated ? (

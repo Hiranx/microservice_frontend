@@ -1,6 +1,6 @@
-const API_BASE_URL = "http://localhost:8080"; // Replace with your actual API endpoint
+const API_BASE_URL = "http://localhost:8080"; 
 
-// Login User
+
 export const loginUser = async (credentials) => {
   console.log("API_BASE_URL", API_BASE_URL);
   try {
@@ -12,8 +12,8 @@ export const loginUser = async (credentials) => {
       body: JSON.stringify(credentials),
     });
 
-    // Directly get the token as a string
-    const token = await response.text(); // Use .text() instead of .json()
+
+    const token = await response.text(); 
 
     console.log("Received token:", token);
 
@@ -21,7 +21,7 @@ export const loginUser = async (credentials) => {
       throw new Error("Login failed");
     }
 
-    // Save token to localStorage
+
     if (token) {
       localStorage.setItem("token", token);
     }
@@ -35,7 +35,7 @@ export const loginUser = async (credentials) => {
   }
 };
 
-// Register User (unchanged)
+
 export const registerUser = async (userData) => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
@@ -61,7 +61,7 @@ export const registerUser = async (userData) => {
   }
 };
 
-// Example of a request with token from localStorage
+
 export const fetchProtectedData = async () => {
   const token = localStorage.getItem("token");
 
@@ -73,7 +73,7 @@ export const fetchProtectedData = async () => {
     const response = await fetch(`${API_BASE_URL}/api/protected-endpoint`, {
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${token}`, // Add token to Authorization header
+        "Authorization": `Bearer ${token}`, 
         "Content-Type": "application/json",
       },
     });
