@@ -1,14 +1,29 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';  // 👈 import jwt-decode
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const isAuthenticated = !!localStorage.getItem('token');
-    const userRole = localStorage.getItem('role');
+    const token = localStorage.getItem('token');
+    const isAuthenticated = !!token;
+
+    let userRole = null;
+
+    if (token) {
+        try {
+            const decoded = jwtDecode(token);
+            userRole = decoded.role; 
+    
+            console.log(userRole); 
+    
+        } catch (error) {
+            console.error('Invalid token:', error);
+            userRole = null;
+        }
+    }
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('role');
         navigate('/login');
     };
 
@@ -21,8 +36,9 @@ const Navbar = () => {
     };
 
     const handleOwnerAccess = () => {
-        if (userRole === 'RESTAURANT_OWNER') {
+        if (userRole == 'RESTURENTADMIN') {
             navigate('/manage');
+            console.log ('You are authorized person');
         } else {
             alert('You are unauthorized person');
         }
