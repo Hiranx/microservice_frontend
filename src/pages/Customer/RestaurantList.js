@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllRestaurants } from '../../api/restaurantApi';
+import { getAllRestaurants } from '../../apiRestaurant/restaurantApi';
 import RestaurantCard from '../../components/customer/RestaurantCard';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 
