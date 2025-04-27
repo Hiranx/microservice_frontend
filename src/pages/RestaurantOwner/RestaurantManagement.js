@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getRestaurantById, updateRestaurant, toggleAvailability } from '../../api/restaurantApi';
-import { getMenuItems, addMenuItem, updateMenuItem, deleteMenuItem, toggleItemAvailability } from '../../api/menuApi';
+import { getRestaurantById, updateRestaurant, toggleAvailability } from '../../apiRestaurant/restaurantApi';
+import { getMenuItems, addMenuItem, updateMenuItem, deleteMenuItem, toggleItemAvailability } from '../../apiRestaurant/menuApi';
 import MenuItemForm from '../../components/restaurant/MenuItemForm';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 

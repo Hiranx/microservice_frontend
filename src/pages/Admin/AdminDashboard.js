@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getPendingRestaurants, updateApprovalStatus } from '../../api/adminApi';
+import { getPendingRestaurants, updateApprovalStatus } from '../../apiRestaurant/adminApi';
 import PendingRestaurantRow from '../../components/admin/PendingRestaurantRow';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 
