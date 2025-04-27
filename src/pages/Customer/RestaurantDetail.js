@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getRestaurantById } from '../../api/restaurantApi';
-import { getMenuItems } from '../../api/menuApi';
+import { getRestaurantById } from '../../apiRestaurant/restaurantApi';
+import { getMenuItems } from '../../apiRestaurant/menuApi';
 import MenuItemCard from '../../components/customer/MenuItemCard';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getMenuItems, addMenuItem, updateMenuItem, deleteMenuItem } from '../../api/menuApi';
+import { getMenuItems, addMenuItem, updateMenuItem, deleteMenuItem } from '../../apiRestaurant/menuApi';
 
 const MenuManagement = ({ restaurantId }) => {
     const [menuItems, setMenuItems] = useState([]);
