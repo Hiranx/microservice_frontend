@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import AuthLayout from '../components/Auth/AuthLayout'
 import InputField from '../components/Auth/InputField'
 import { loginUser } from '../service/api'
+
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -23,7 +24,7 @@ const Login = () => {
         if (response.data?.token) {
           localStorage.setItem('authToken', response.data.token)
         }
-        navigate('/dashboard')
+        navigate('/RestaurantList')
       } else {
         setError(response.error || 'Login failed')
       }
