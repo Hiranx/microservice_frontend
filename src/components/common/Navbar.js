@@ -12,6 +12,22 @@ const Navbar = () => {
         navigate('/login');
     };
 
+    const handleAdminAccess = () => {
+        if (userRole === 'ADMIN') {
+            navigate('/admin');
+        } else {
+            alert('You are unauthorized person');
+        }
+    };
+
+    const handleOwnerAccess = () => {
+        if (userRole === 'RESTAURANT_OWNER') {
+            navigate('/manage');
+        } else {
+            alert('You are unauthorized person');
+        }
+    };
+
     return (
         <nav className="bg-blue-600 text-white shadow-lg">
             <div className="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -20,12 +36,22 @@ const Navbar = () => {
                 <div className="flex space-x-4">
                     <Link to="/" className="hover:bg-blue-700 px-3 py-2 rounded">Home</Link>
 
-                    {isAuthenticated && userRole === 'ADMIN' && (
-                        <Link to="/admin" className="hover:bg-blue-700 px-3 py-2 rounded">Admin</Link>
-                    )}
+                    {isAuthenticated && (
+                        <>
+                            <button
+                                onClick={handleAdminAccess}
+                                className="hover:bg-blue-700 px-3 py-2 rounded"
+                            >
+                                Admin
+                            </button>
 
-                    {isAuthenticated && userRole === 'RESTAURANT_OWNER' && (
-                        <Link to="/manage" className="hover:bg-blue-700 px-3 py-2 rounded">Manage Restaurant</Link>
+                            <button
+                                onClick={handleOwnerAccess}
+                                className="hover:bg-blue-700 px-3 py-2 rounded"
+                            >
+                                Manage Restaurant
+                            </button>
+                        </>
                     )}
 
                     {isAuthenticated ? (
