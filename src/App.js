@@ -1,34 +1,54 @@
-import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login'
-import Register from './pages/Register'
-import RestaurantList from "./pages/Customer/RestaurantList"
-import RestaurantCreateForm from "./pages/Customer/RestaurantCreateForm"
-import AdminDashboard from "./pages/Admin/AdminDashboard"
-import RestaurantManagement from "./pages/RestaurantOwner/RestaurantManagement"
-import RestaurantDetail from "./pages/Customer/RestaurantDetail"
-import Layout from "./components/common/Layout"
+import Login from './pages/Login';
+import Register from './pages/Register';
+import RestaurantList from './pages/Customer/RestaurantList';
+import RestaurantCreateForm from './pages/Customer/RestaurantCreateForm';
+import AdminDashboard from './pages/Admin/AdminDashboard';
+import RestaurantManagement from './pages/RestaurantOwner/RestaurantManagement';
+import RestaurantDetail from './pages/Customer/RestaurantDetail';
+import CreateDelivery from './pages/deliveryPages/CreateDelivery';
+import ViewDeliveries from './pages/deliveryPages/ViewDeliveries';
+import TrackDelivery from './pages/deliveryPages/TrackDelivery';
+import DriverDashboard from './pages/deliveryPages/DriverDashboard';
+import DriverSimulator from './components/deliveryComponents/DriverSimulator';
+import UpdateDriverAvailability from './pages/deliveryPages/UpdateDriverAvailability';
+import Layout from './components/common/Layout';
+import DeliveryLayout from './components/common/DeliveryLayout'; // assumed you place it inside components/common too
 
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
 
-export default function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                {/* Auth routes without Layout */}
-                <Route path="/login" element={<Login />} /> 
-                <Route path="/register" element={<Register />} />
+        {/* Auth pages - without layout */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-                {/* All other routes wrapped with Layout */}
-                <Route element={<Layout />}> {/* layout give navbar*/}
-                    <Route path="/RestaurantList" element={<RestaurantList />} />
-                    <Route path="/restaurants/create" element={<RestaurantCreateForm />} />
-                    <Route path="/admin" element={<AdminDashboard />} />
-                    <Route path="/manage/:id" element={<RestaurantManagement />} />
-                    <Route path="/restaurants/:id" element={<RestaurantDetail />} />
+        {/* Customer/Admin/Owner routes - with normal Layout */}
+        <Route element={<Layout />}>
+          <Route path="/RestaurantList" element={<RestaurantList />} />
+          <Route path="/restaurants/create" element={<RestaurantCreateForm />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/manage/:id" element={<RestaurantManagement />} />
+          <Route path="/restaurants/:id" element={<RestaurantDetail />} />
+        </Route>
 
-                    <Route path="*" element={<Navigate to="/" replace />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    )
+        {/* Delivery system routes - with DeliveryLayout */}
+        <Route element={<DeliveryLayout />}>
+          <Route path="/" element={<CreateDelivery />} />
+          <Route path="/deliveries" element={<ViewDeliveries />} />
+          <Route path="/deliveries/:deliveryId" element={<TrackDelivery />} />
+          <Route path="/driver" element={<DriverDashboard />} />
+          <Route path="/drivers/availability" element={<UpdateDriverAvailability />} />
+          <Route path="/simulate/:deliveryId" element={<DriverSimulator />} />
+        </Route>
+
+        {/* fallback: if nothing matched */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+        
+      </Routes>
+    </BrowserRouter>
+  );
 }
+
+export default App;
