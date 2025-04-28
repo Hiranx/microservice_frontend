@@ -25,7 +25,6 @@ export default function App() {
                     <Route path="/admin" element={<AdminDashboard />} />
                     <Route path="/manage/:id" element={<RestaurantManagement />} />
                     <Route path="/restaurants/:id" element={<RestaurantDetail />} />
-
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Route>
             </Routes>
