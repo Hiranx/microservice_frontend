@@ -57,7 +57,7 @@ function TrackDelivery() {
 
     fetchDelivery();
 
-    const socket = new SockJS('http://localhost:8080/delivery-websocket');
+    const socket = new SockJS('http://localhost:8083/delivery-websocket');
     const stompClient = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {

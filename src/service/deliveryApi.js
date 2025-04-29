@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'http://localhost:8083/api';
 
 // Existing API functions (unchanged)
 export const createDelivery = (data) => axios.post(`${API_BASE_URL}/delivery`, data);

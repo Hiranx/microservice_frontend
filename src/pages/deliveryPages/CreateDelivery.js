@@ -116,7 +116,7 @@ useEffect(() => {
 
       // Initialize WebSocket to listen for driver response
       const client = new Client({
-        webSocketFactory: () => new SockJS('http://localhost:8080/delivery-websocket'),
+        webSocketFactory: () => new SockJS('http://localhost:8083/delivery-websocket'),
         reconnectDelay: 5000,
       });
 

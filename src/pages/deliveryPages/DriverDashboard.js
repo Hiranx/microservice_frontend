@@ -12,7 +12,7 @@ function DriverDashboard() {
   useEffect(() => {
     const fetchDeliveries = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/delivery');
+        const response = await axios.get('http://localhost:8083/api/delivery');
         setDeliveries(response.data.filter(d => d.status === 'WAITING_FOR_DRIVER_RESPONSE'));
       } catch (error) {
         console.error('Error fetching deliveries:', error);
@@ -25,7 +25,7 @@ function DriverDashboard() {
   // Set up WebSocket connection
   useEffect(() => {
     const client = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8080/delivery-websocket'),
+      webSocketFactory: () => new SockJS('http://localhost:8083/delivery-websocket'),
       debug: (str) => console.log(str),
       reconnectDelay: 5000,
     });
@@ -81,7 +81,7 @@ function DriverDashboard() {
 
   const handleDriverResponse = async (deliveryId, response) => {
     try {
-      await axios.put(`http://localhost:8080/api/delivery/${deliveryId}/driver-response`, {
+      await axios.put(`http://localhost:8083/api/delivery/${deliveryId}/driver-response`, {
         response,
       });
       setDeliveries((prev) =>
