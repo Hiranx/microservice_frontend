@@ -24,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
+
         {/* Customer/Admin/Owner routes - with normal Layout */}
         <Route element={<Layout />}>
           <Route path="/RestaurantList" element={<RestaurantList />} />
@@ -52,3 +53,4 @@ function App() {
 }
 
 export default App;
+
