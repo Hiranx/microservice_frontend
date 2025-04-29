@@ -36,7 +36,7 @@ function App() {
 
         {/* Delivery system routes - with DeliveryLayout */}
         <Route element={<DeliveryLayout />}>
-          <Route path="/" element={<CreateDelivery />} />
+          <Route path="/create-delivery" element={<CreateDelivery />} />
           <Route path="/deliveries" element={<ViewDeliveries />} />
           <Route path="/deliveries/:deliveryId" element={<TrackDelivery />} />
           <Route path="/driver" element={<DriverDashboard />} />
