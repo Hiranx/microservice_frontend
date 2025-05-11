@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getAllRestaurants } from '../../apiRestaurant/restaurantApi';
 import RestaurantCard from '../../components/customer/RestaurantCard';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
@@ -43,26 +44,87 @@ const RestaurantList = () => {
     );
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-12">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Our Restaurants</h1>
-                    <p className="text-gray-600">Browse and order from your favorite places</p>
-                </div>
+        <div className="flex flex-col min-h-screen">
+            <div className="flex-grow bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-12">
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">Our Restaurants</h1>
+                        <p className="text-gray-600">Browse and order from your favorite places</p>
+                    </div>
 
-                {restaurants.length === 0 ? (
-                    <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-sm text-center">
-                        <p className="text-gray-600 mb-4">No approved restaurants available at this time.</p>
-                        <p className="text-gray-400">Please check back later.</p>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {restaurants.map((restaurant) => (
-                            <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-                        ))}
-                    </div>
-                )}
+                    {restaurants.length === 0 ? (
+                        <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-sm text-center">
+                            <p className="text-gray-600 mb-4">No approved restaurants available at this time.</p>
+                            <p className="text-gray-400">Please check back later.</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {restaurants.map((restaurant) => (
+                                <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
+
+            {/* Footer */}
+            <footer className="bg-white border-t border-gray-200">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        {/* Company Info */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Savory Swift</h3>
+                            <p className="text-gray-600">Fast, fresh, and delicious food delivered to your doorstep.</p>
+                            <div className="mt-4">
+                                <Link
+                                    to="/restaurants/create"
+                                    className="inline-block bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition"
+                                >
+                                    Add Your Restaurant
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Quick Links */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
+                            <ul className="space-y-2">
+                                <li><Link to="#" className="text-gray-600 hover:text-blue-600 transition">About Us</Link></li>
+                                <li><Link to="#" className="text-gray-600 hover:text-blue-600 transition">Contact</Link></li>
+                                <li><Link to="#" className="text-gray-600 hover:text-blue-600 transition">FAQs</Link></li>
+                                <li><Link to="#" className="text-gray-600 hover:text-blue-600 transition">Careers</Link></li>
+                            </ul>
+                        </div>
+
+                        {/* For Restaurants */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">For Restaurants</h3>
+                            <ul className="space-y-2">
+                                <li><Link to="/restaurants/create" className="text-gray-600 hover:text-blue-600 transition">Register Restaurant</Link></li>
+                                <li><Link to="#" className="text-gray-600 hover:text-blue-600 transition">Restaurant Login</Link></li>
+                                <li><Link to="#" className="text-gray-600 hover:text-blue-600 transition">Benefits</Link></li>
+                                <li><Link to="#" className="text-gray-600 hover:text-blue-600 transition">Pricing</Link></li>
+                            </ul>
+                        </div>
+
+                        {/* Contact Info */}
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact Us</h3>
+                            <address className="not-italic text-gray-600 space-y-2">
+                                <p>123 World Trade Center</p>
+                                <p>Colombo 2, Sri Lanka</p>
+                                <p>Email: <a href="mailto:info@savoryswift.com" className="text-blue-600 hover:underline">info@savoryswift.com</a></p>
+                                <p>Phone: <a href="tel:+94112345678" className="text-blue-600 hover:underline">+94 (112) 345-678</a></p>
+                            </address>
+                        </div>
+                    </div>
+
+                    {/* Copyright */}
+                    <div className="mt-12 pt-8 border-t border-gray-200 text-center text-gray-500">
+                        <p>© {new Date().getFullYear()} Savory Swift. All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 };
