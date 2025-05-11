@@ -1,4 +1,3 @@
-// src/pages/admin/AdminDashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { getPendingRestaurants, updateApprovalStatus } from '../../apiRestaurant/adminApi';
 import { getRestaurantOrders, updateOrderStatus } from '../../apiRestaurant/orderApi';
@@ -12,7 +11,7 @@ const AdminDashboard = () => {
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [activeTab, setActiveTab] = useState('approvals'); // 'approvals' or 'orders'
+    const [activeTab, setActiveTab] = useState('approvals');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,111 +53,79 @@ const AdminDashboard = () => {
         }
     };
 
-    if (loading) return <LoadingSpinner />;
-    if (error) return <div className="text-red-500 text-center mt-8">Error: {error}</div>;
+    if (loading) return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-24">
+            <LoadingSpinner />
+        </div>
+    );
+
+    if (error) return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-24">
+            <div className="max-w-md w-full bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Error Loading Data</h2>
+                <p className="text-red-500">{error}</p>
+            </div>
+        </div>
+    );
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <div className="flex mb-6 border-b">
-                <button
-                    className={`py-2 px-4 font-medium ${activeTab === 'approvals' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500'}`}
-                    onClick={() => setActiveTab('approvals')}
-                >
-                    Pending Approvals
-                </button>
-                <button
-                    className={`py-2 px-4 font-medium ${activeTab === 'orders' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500'}`}
-                    onClick={() => setActiveTab('orders')}
-                >
-                    Manage Orders
-                </button>
-            </div>
-
-            {activeTab === 'approvals' ? (
-                <>
-                    <h1 className="text-2xl font-bold mb-6">Pending Restaurant Approvals</h1>
-                    {pendingRestaurants.length === 0 ? (
-                        <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                            <p>No pending restaurant approvals</p>
+        <div className="min-h-screen bg-gray-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+                <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                    <div className="p-8">
+                        {/* Tab navigation */}
+                        <div className="flex border-b border-gray-200 mb-8">
+                            <button
+                                className={`py-3 px-6 font-medium text-sm ${activeTab === 'approvals'
+                                    ? 'text-blue-600 border-b-2 border-blue-600'
+                                    : 'text-gray-500 hover:text-gray-700'}`}
+                                onClick={() => setActiveTab('approvals')}
+                            >
+                                Pending Approvals
+                            </button>
                         </div>
-                    ) : (
-                        <div className="bg-white shadow-md rounded-lg overflow-hidden">
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
-                                <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owner</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                {pendingRestaurants.map((restaurant) => (
-                                    <PendingRestaurantRow
-                                        key={restaurant.id}
-                                        restaurant={restaurant}
-                                        onApprove={handleApproval}
-                                    />
-                                ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    )}
-                </>
-            ) : (
-                <>
-                    <h1 className="text-2xl font-bold mb-6">Restaurant Orders</h1>
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Select Restaurant</label>
-                        <select
-                            className="border border-gray-300 rounded-md px-3 py-2 w-full md:w-1/3"
-                            value={selectedRestaurant || ''}
-                            onChange={(e) => setSelectedRestaurant(e.target.value)}
-                        >
-                            <option value="">Select a restaurant</option>
-                            {/* You might want to fetch approved restaurants here */}
-                            <option value="1">Restaurant 1</option>
-                            <option value="2">Restaurant 2</option>
-                        </select>
-                    </div>
 
-                    {selectedRestaurant ? (
-                        restaurantOrders.length === 0 ? (
-                            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                                <p>No orders found for this restaurant</p>
-                            </div>
+                        {activeTab === 'approvals' ? (
+                            <>
+                                <h1 className="text-2xl font-bold text-gray-900 mb-6">Pending Restaurant Approvals</h1>
+                                {pendingRestaurants.length === 0 ? (
+                                    <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center">
+                                        <p className="text-gray-600">No pending restaurant approvals</p>
+                                    </div>
+                                ) : (
+                                    <div className="bg-white shadow-sm rounded-xl overflow-hidden border border-gray-200">
+                                        <div className="overflow-x-auto">
+                                            <table className="min-w-full divide-y divide-gray-200">
+                                                <thead className="bg-gray-50">
+                                                <tr>
+                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owner</th>
+                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody className="bg-white divide-y divide-gray-200">
+                                                {pendingRestaurants.map((restaurant) => (
+                                                    <PendingRestaurantRow
+                                                        key={restaurant.id}
+                                                        restaurant={restaurant}
+                                                        onApprove={handleApproval}
+                                                    />
+                                                ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                )}
+                            </>
                         ) : (
-                            <div className="bg-white shadow-md rounded-lg overflow-hidden">
-                                <table className="min-w-full divide-y divide-gray-200">
-                                    <thead className="bg-gray-50">
-                                    <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody className="bg-white divide-y divide-gray-200">
-                                    {restaurantOrders.map((order) => (
-                                        <OrderRow
-                                            key={order.id}
-                                            order={order}
-                                            onStatusChange={handleStatusChange}
-                                        />
-                                    ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )
-                    ) : (
-                        <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                            <p>Please select a restaurant to view orders</p>
-                        </div>
-                    )}
-                </>
-            )}
+                            <>
+
+                            </>
+                        )}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

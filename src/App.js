@@ -12,8 +12,9 @@ import TrackDelivery from './pages/deliveryPages/TrackDelivery';
 import DriverDashboard from './pages/deliveryPages/DriverDashboard';
 import DriverSimulator from './components/deliveryComponents/DriverSimulator';
 import UpdateDriverAvailability from './pages/deliveryPages/UpdateDriverAvailability';
-import Layout from './components/common/Layout';
-import DeliveryLayout from './components/common/DeliveryLayout'; // assumed you place it inside components/common too
+import RestaurantOwnerLayout from './components/common/RestaurantOwnerLayout';
+import DeliveryLayout from './components/common/DeliveryLayout';
+
 
 function App() {
   return (
@@ -25,12 +26,12 @@ function App() {
         <Route path="/register" element={<Register />} />
 
 
-        {/* Customer/Admin/Owner routes - with normal Layout */}
-        <Route element={<Layout />}>
+        {/* Customer/Admin/Owner routes - with normal RestaurantOwnerLayout */}
+        <Route element={<RestaurantOwnerLayout />}>
           <Route path="/RestaurantList" element={<RestaurantList />} />
           <Route path="/restaurants/create" element={<RestaurantCreateForm />} />
-          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/manage/:id" element={<RestaurantManagement />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/restaurants/:id" element={<RestaurantDetail />} />
         </Route>
 
