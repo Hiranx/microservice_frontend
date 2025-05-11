@@ -45,7 +45,7 @@ function App() {
         </Route>
 
         {/* fallback: if nothing matched */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/RestaurantList" replace />} />
         
       </Routes>
     </BrowserRouter>
